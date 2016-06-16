@@ -4,6 +4,7 @@ echo "
 	<html>
 	<head>
 		<title>Students</title>
+		<script type=\"text/javascript\" src=\"script.js\" ></script>
 		<link rel=\"stylesheet\" type=\"text/css\" href = \"style.css\"/>
 	</head>
 

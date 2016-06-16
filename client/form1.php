@@ -11,10 +11,10 @@ echo"
                 <option value=\"Ms\">Ms</option>
                 <option value=\"Mrs\">Mrs</option>
             </select><br/><br/>
-            <input id = \"input\" type = \"text\" name = "pContact\" placeholder = \"Person of Contact\" id = \"input\"/><br/><br/>
+            <input id = \"input\" type = \"text\" name = \"pContact\" placeholder = \"Person of Contact\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"text\" name = \"eAddress\" placeholder = \"E-Mail Address\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"password\" name = \"cNumber\" placeholder = \"Phone Number\" id = \"input\"/><br/><br/>
-			<input id = \"input\" type = \"password\" name = \"cAddress\" placeholder = \"Physical Address\" id = "input"/><br/><br/>
+			<input id = \"input\" type = \"password\" name = \"cAddress\" placeholder = \"Physical Address\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"password\" name = \"country\" placeholder = \"Country\" id = \"input\"/><br/><br/>
 			<input id = \"submit\" type = \"submit\" id = \"submit\" name = \"submit\" value= \"Continue\"/>
 		</form>

@@ -6,8 +6,8 @@ include("header.php");
 	<div id = \"view\">
 		<div id = \"select1\">
 		<div id = \"select2\">
-		<h1>Your Account has been set up!<br/>
-		Thank You very much.</h1>
+		<br/><p id = \"sent\" >Your Account has been set up!<br/>
+		Thank You very much.</p>
 		</div>
 		</div>
 	</div>

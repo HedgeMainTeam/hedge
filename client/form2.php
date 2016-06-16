@@ -5,7 +5,7 @@ echo"
 	<center>
 	<div id = \"view\">
 	<div id = \"signup\">
-	<h2>Create Your Account</h2><br/>
+	<br/><br/><br/><h2>Create Your Account</h2><br/>
 		<form id = \"signup\" method = \"POST\"	action = \"clientSignup1.php\">
 			<input id = \"input\" type = \"text\" name = \"cCode\" placeholder = \"Client Code\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"password\" name = \"password\" placeholder = \"Password\" id = \"input\"/><br/><br/>
@@ -14,7 +14,7 @@ echo"
 		</form>
 	</div>
 	</div>
-	</center>
+	</center><br/><br/><br/>
 ";
 
 ?>

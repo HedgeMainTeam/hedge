@@ -1,7 +1,7 @@
 <?php
 
 	include("header.php");
-	include("loginform.php");
+	include("form2.php");
 	include("footer.php");
 
 ?>

@@ -42,6 +42,7 @@ li a:hover {
 }
 
 #footer{
+	margin-top:30px;
     bottom: 0;
     width: 100%;
     color:#ffffff;
@@ -77,6 +78,7 @@ a{
 }
 
 #login{
+	margin-top: 50px;
 	padding-top:140px;
 	width:300px;
 
@@ -116,7 +118,7 @@ h1{
 
 #view{
 	padding:0px;
-	margin:0px;
+	margin:80px;
 
 }
 
@@ -277,4 +279,11 @@ h1{
 	padding-top:50px;
 	padding-left: 50px;
 	padding-right:20px;
+}
+
+#sent{
+	color:#ffffff;
+	font-size:30px;
+	padding-top:100px;
+	width:250px;
 }

@@ -24,7 +24,7 @@ echo"
 
 
 			<br/><a href = "mResults.php"><button id = "button" >More Results</button></a><br/>
-			<br/><a href = "explore.html"><button id = "button" >Go Back to Explore</button></a><br/><br/><br/></center>
+			<br/><a href = "explore.php"><button id = "button" >Go Back to Explore</button></a><br/><br/><br/></center>
 
 
 

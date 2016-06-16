@@ -7,7 +7,7 @@ echo"
 		<div id = \"select2\">
 		<p id = \"sent\">Please Check your E-mail within the next hour for a form we will send to you.
 		</p>
-		<a href = \"signup3.php\">Click Here</a><br/>
+		<a href = \"OrgSignup1.php\">Click Here</a><br/>
 		</div>
 		</div>
 	</div>

@@ -4,7 +4,7 @@ echo"
 <center>
 	<div id = \"view\">
 	<div id = \"signup\">
-	<h2>Almost Done</h2><br/>
+	<br/><br/><h2>Almost Done</h2><br/>
 		<form id = \"signup\" method = \"POST\"	action = \"clientSignup2.php\">
 			<p>Maximum Number of Students You would like to follow<br/><br/>
 			<select id = \"input\" name=\"stdNum\">
@@ -20,7 +20,7 @@ echo"
 		</form>
 	</div>
 	</div>
-	</center>
+	</center><br/><br/><br/><br/>
 
 
 ";
