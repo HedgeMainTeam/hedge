@@ -6,7 +6,7 @@
 	<div id = \"view\">
 	<div id = \"signup\">
 	<h2>Sign Up Below!</h2><br/>
-		<form id = \"signup\" method = \"POST\"	action = \"uniSignup.php\">
+		<form id = \"signup\" method = \"POST\"	action = \"signup1.php\">
 			<input id = \"input\" type = \"text\" name = \"uniName\" placeholder = \"Institute Name\" id = \"input\"/><br/><br/>
 			<select id = \"input\" name=\"prefix\">
                 <option value=\"Mr\">Mr</option>

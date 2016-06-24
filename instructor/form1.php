@@ -5,7 +5,7 @@ echo"
 	<div id = \"view\">
 	<div id = \"signup\">
 	<h2>Sign Up Here</h2><br/>
-		<form id = \"signup\" method = \"POST\"	action =\"instructorsignup.php\">
+		<form id = \"signup\" method = \"POST\"	action =\"lectSignup.php\">
 			<input id = \"input\" type = \"text\" name = \"uniCode\" placeholder = \"University Code\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"text\" name = "email" placeholder = \"Email Address\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"text\" name = \"fName\" placeholder = \"Full Name\" id = \"input\"/><br/><br/>
