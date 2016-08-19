@@ -1,40 +1,68 @@
 <?php
+include("connect.php");
+$currentUser = $_COOKIE['current_user'];
+$sql = "select * from notifications where student = '$currentUser'";
+$query = mysqli_query($connection,$sql);
+if(!$query){
+    echo "Something went wrong";
+}
+else{
+    $total = mysqli_num_rows($query);
+}
+
 include("header.php");
+
 
 echo"
 <center>
 	<div id = \"view\">
 		<div id = \"notification\">
-			<center><div id = \"nCard\">
-				<p>Focus Inc is interested in you.<button id = \"button\" href = \"#\">View </button></p>
-			</div><br/>
+			<center>";
+            while($info = mysqli_fetch_assoc($query)){
+            $source = $info['source'];
+            $text = $info['text'];
+            $type = $info['type'];
+            
+            if($type == "business"){
 
-			<div id = \"nCard\">
-				<p>Focus Inc is interested in you.<button id = \"button\" href = \"#\">View </button></p>
-			</div><br/>
+                $new_sql = "select * from clients where email = '$source'";
+                $new_query($connection_business, $new_sql);
 
-			<div id = \"nCard\">
-				<p>Focus Inc is interested in you.<button id = \"button\" href = \"#\">View </button></p>
-			</div><br/>
+                if(mysqli_num_rows($new_query) == 0){
+                      echo "
+                        <div id = \"nCard\">
+				            <p>Nothing to Show Yet.</p>
+                        </div><br/>
+                        ";
+                }
+                else if(!$new_query){
+                    echo $connection_business->error();
+                }
 
-			<div id = \"nCard\">
-				<p>Focus Inc is interested in you.<button id = \"button\" href = \"#\">View </button></p>
-			</div><br/>
+                else if ($new_query){
+           			setcookie("business", $source, time() + 24 * 60 * 60, "/");
+                    echo"
+                        <div id = \"nCard\">
+				            <p>$text <form method = 'POST' action = 'loadbusiness.php'><input name = 'client' type = 'submit' id = 'button' value = 'View'/><form></p>
+                        </div><br/>";
+                }
+            }
+            
 
-			<div id = \"nCard\">
-				<p>Focus Inc is interested in you.<button id = \"button\" href = \"#\">View </button></p>
-			</div><br/>
+            else{
 
-			
+            echo"
+            <div id = \"nCard\">
+				<p>$text <form method = 'POST' action = 'grades.php'><input type = 'submit' id = 'button' value = 'View'/><form></p>
+            </div><br/>";
+            }
+} 
 
 
-			<br/><a href = \"morefeed.php\"><button id = \"button\" >Next</button></a><br/><br/><br/></center>
-
-
-
+echo"
 		</div>
 
-	</div></center>
+	</div></center><br/><br/><br/><br/><br/><br/>";
 
 include("footer.php");
 ?>

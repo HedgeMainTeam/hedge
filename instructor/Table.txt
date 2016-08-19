@@ -1,0 +1,6 @@
+﻿CREATE TABLE `instructors` (
+  `email` text,
+  `fullname` text,
+  `nCourses` int(10) DEFAULT NULL,
+  `password` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

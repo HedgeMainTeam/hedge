@@ -1,5 +1,36 @@
 <?php
 include("header.php");
+include("connect.php");
+
+$currentUser = $_COOKIE['current_user'];
+$sql = "select * from students where email = '$currentUser'";
+$query = mysqli_query($connection, $sql);
+if(!$query){
+    echo  $connection->error();
+}
+
+else{
+    $data = mysqli_fetch_array($query);
+    $name = $data['FullName'];
+    $uniCode = $data['uniCode'];
+    $age = date("Y") - $data['YearOfBirth'];
+    $program = $data['ProgramOfStudy'];
+    $bio = $data['Biography'];
+    $sex = $data['sex'];
+
+    $uni_sql = "select * from universities where id = '$uniCode'";
+    $uni_query = mysqli_query($connection_schools, $uni_sql);
+    if(!$uni_query){
+        echo $connection_schools->error();
+    }
+
+    else{
+        $uni_data = mysqli_fetch_array($uni_query);
+        $uniName = $uni_data['name'];
+    }
+    
+}
+
 
 echo "
 <center>
@@ -7,15 +38,14 @@ echo "
 		<div id = \"profile\">
 			<div id = \"student\">
 			<div id = \"info\">
-			<h2>Student Name: Kylo Ren</h2><br/>
-			<h3>Born: 1 April, 2015</h3>
-			<h3>Sex: Male</h3>
-			<h3>Attends: University of Zambia</h3>
-			<h3>School: Natural Sciences</h3>
-			<h3>Program of Study: Medicine</h3></div>
-			<div id = \"stdBio\"><h2>Biography:</h2><p> I am a hardworking student with a passion for medicince, my goal is to help s many people as possible in my country and to slow down the rate of malaria in Africa, please check my grades and see for yourself, feel free to contact me.</p>
-			<h2>Email Address:</h2><p> kren@gmail.com</p>
-			<button id = \"button\" href = \"#\">View Performance </button></div>
+			<h2>Student Name: $name</h2><br/>
+			<h3>Age: $age</h3>
+			<h3>Sex: $sex</h3>
+			<h3>Attends: $uniName</h3>
+			<h3>Program of Study: $program</h3></div>
+			<div id = \"stdBio\"><h2>Biography:</h2><p>$bio</p>
+			<h2>Contact:</h2><p>$currentUser</p>
+			<button id = \"button\" onclick = \"parent.location = 'grades.php'\">View Performance </button></div>
 
 				
 			</div><br/>

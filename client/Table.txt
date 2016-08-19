@@ -1,0 +1,19 @@
+﻿CREATE TABLE `clients` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) DEFAULT NULL,
+  `pcontact` varchar(250) NOT NULL,
+  `number` varchar(250) NOT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `password` varchar(250) DEFAULT NULL,
+  `address` varchar(250) NOT NULL,
+  `cstudents` int(11) NOT NULL DEFAULT '0',
+  `maxstudents` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT = 145623115;
+
+CREATE TABLE `openings` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) DEFAULT NULL,
+  `description` text NOT NULL,
+  `deadline` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

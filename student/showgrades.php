@@ -1,6 +1,7 @@
 <?php
-include("connect.php");
 include("header.php");
+include("connect.php");
+
 $currentUser = $_COOKIE['current_user'];
 $sql = "select * from students where Email = '$currentUser'";
 $query = mysqli_query($connection, $sql);
@@ -35,28 +36,15 @@ else{
 if(!$grade_query){
     echo "Something went wrong";
 }
-    
 
-else{
-        $years = array();
-        $years[0] = date("Y");
-        $i = 0;
-        $total = mysqli_num_rows($grade_query);
-        while($info = mysqli_fetch_assoc($grade_query)){
-            $year = $info['year'];
-            foreach($years as $it){
-                if($it == $year){
-                    break;
-                    }
-                else{
-                    $i = $i + 1;
-                    $years[$i] = $year;
-                }
-            }
-            
-            
+
+if($_POST['year']){
+    $year_sql = "select * from studentgrades where student = '$student'";
+    $year_query = mysqli_query($connection_schools, $year_sql);
+    if(!$year_query){
+        echo $connection_schools->error;
 }
-
+    else{
     echo"
 <center>
 	<div id = \"view\">
@@ -69,20 +57,28 @@ else{
 			<h3>Attends: $uniName</h3>
 			<h3>Program of Study: $program</h3></div>
 			<div id = \"stdRight\">
-			<form method = 'POST' action = 'showgrades.php'>";
-            foreach ($years as $button){
-                echo"<input type = 'submit' id = 'button' value = '$button' name = 'year'/><br/>";
+			<h2>Performance</h2>
+                <table id = \"grades\" border = \"1\">
+				<tr><th>Course</th><th>Grade</th></tr>";
+            while($info = mysqli_fetch_assoc($year_query)){
+                    $course = $info['subjectName'];
+                    $grade = $info['subjectMark'];
+                    echo"<tr><td>$course</td><td>$grade</td></tr>";
             }
-            echo"</form>
-            </div><br/>
+			
+            echo"
+					</table>
+			</div><br/>
 				
 			</div>
 		</div>
 
 	</div></center>
-";
-}
 
+";
+        
+}
+}
 }
 
 include("footer.php");

@@ -65,6 +65,11 @@ a{
 	background-color: #ffffff;
 }
 
+#selectstart{
+    margin-top:100px;
+    margin-bottom:100px;
+}
+
 #select2{
 	/*width:360px;
 	height:360px;

@@ -1,6 +1,5 @@
 <?php
-
-$connection = mysqli_connect("localhost", "root", "", "unitest" ) or die ("Failed to connect to server : " . mysqli_connect_error());
+include("connect.php");
 $CurrentUserEmail = $_COOKIE['current_user'];
 
 $Query = "SELECT FullName, YearOfBirth, Email, ProgramOfStudy, YearOfAdmission, YearOfGraduation, Biography  FROM students WHERE Email = '$CurrentUserEmail'";

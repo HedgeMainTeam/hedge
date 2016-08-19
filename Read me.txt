@@ -15,13 +15,7 @@
 
 
 
-Yo! Yo! I finished this with Malaria! I'm BEAST!
-Fred are you a BEAST?!?! SAAAT! I've tacked! Okay maybe... But on a lower level.. Hahahaha!
-
-Okay Back to serious business. Everything is pretty straight forward. I made php files for everything to help organise everything.
-
-I don't think there's anything you need to know just tell me if you need clarification on anything you need.
-
+You I think its done, it just needs a bit of polishing with the HTML and stuff.
 --------> MojO_jOjo <-----------
 
 ################################################################################################################################################

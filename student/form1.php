@@ -1,5 +1,5 @@
 <?php
-
+include("connect.php");
 echo "
 
 	<center>
@@ -8,8 +8,13 @@ echo "
 	<h2>Sign Up Below!</h2><br/>
 		<form id = \"signup\" method = \"POST\"	action = \"studentsignup1.php\">
 			<input id = \"input\" type = \"text\" name = \"uniCode\" placeholder = \"University Code\" id = \"input\"/><br/><br/>
+     		<input id = \"input\" type = \"text\" name = \"number\" placeholder = \"Student ID/No\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"text\" name = \"email\" placeholder = \"Email Address\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"text\" name = \"fName\" placeholder = \"Full Name\" id = \"input\"/><br/><br/>
+            <select id = \"input\" name=\"sex\">
+                <option value=\"Male\">Male</option>
+                <option value=\"Female\">Female</option>
+            </select><br/><br/>
 			<input id = \"input\" type = \"password\" name = \"password\" placeholder = \"Password\" id = \"input\"/><br/><br/>
 			<input id = \"input\" type = \"password\" name = \"password2\" placeholder = \"Verify Password\" id = \"input\"/><br/>
 			<input id = \"submit\" type = \"submit\" id = \"submit\" name = \"submit\" value= \"Continue\"/>
@@ -19,44 +24,43 @@ echo "
 	</center>
 
 ";
-$submitted = $_POST['submit'];
 
-if (!$submitted) {
-	print("Not submitted");
-}
-else
-{
-	print("Submitted");
-	$connection = mysqli_connect("localhost", "root", "", "unitest" ) or die ("Failed to connect to server : " . mysqli_connect_error());
+if($_POST['submit']){
+    $university = $_POST['uniCode'];
+    $sql = "select * from universities where id = '$university'";
+    $query = mysqli_query($connection_schools,$sql);
+    if($query){
+        $id = $_POST['number'];
+        $email = $_POST['email'];
+        $fullname = $_POST['fName'];
+        $sex = $_POST['sex'];
+        $password = hash("sha512", $_POST['password']);
+	    $password2 = hash("sha512", $_POST['password2']);
 
-	$UniversityCode = $_POST['uniCode'];
-	$EmailAccount 	= $_POST['email'];
-	$FullName 		= $_POST['fName'];
-	$Password1 		= hash("sha512", $_POST['password']);
-	$Password2 		= hash("sha512", $_POST['password2']);
+        if($id && $email && $fullname && $sex && $password && $password2 ){
+           if($password == $password2){
+                setcookie("current_user", $email, time() + 24 * 60 * 60, "/");
+                $student_sql = "insert into students(uniCode, stdNumber, FullName, sex, Email, Password) values ('$university', '$id', '$fullname', '$sex', '$email', '$password')";
+                $student_query = mysqli_query($connection, $student_sql);
+                if($student_query){
+                    echo"Done";
+                    header("Location:studentsignup2.php");
+                }
+                else{
+                       echo $connection->error;
+                }
+           }
+        }
+    }
 
-	if($UniversityCode && $EmailAccount && $FullName && $Password1 && $Password2)
-	{
-		//TODO - Impliment university code
-		//$universityCode = 
+    else if(mysqli_num_rows($query) == 0){
+          echo "Couldn't find any University Matching the Code you entered.";
+    }
 
-		if($Password1 == $Password2)
-		{
-			print("Passworrd Matched\n");
-
-			$DatabaseRequest = "INSERT INTO students (FullName, Password, Email) VALUES ('$FullName', '$Password1', '$EmailAccount')";
-			mysqli_query($connection, $DatabaseRequest);
-
-			setcookie("current_user", $EmailAccount, time() + 24 * 60 * 60, "/");
-
-			header("Location: studentsignup2.php");
-
-		}
-		else
-		{
-			print("Password not matched!");
-		}
-	}
+    else{
+        echo $connection_schools->error;
+    }
+        
 }
 
 

@@ -10,7 +10,7 @@ echo "
 <body>
 	<div id = \"header\">
 		<ul>
-			<li id = \"logo\"><a href=\"\">Logo</a></li>
+			<li id = \"logo\"><img src = 'hedge_logo.png' href = 'index.php'/></li>
    			<li><a href=\"\">Profile</a></li>
    			<li><a href=\"\">News</a></li>
    			<li><a href=\"\">Contact</a></li>
