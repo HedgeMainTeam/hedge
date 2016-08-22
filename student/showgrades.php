@@ -38,7 +38,7 @@ if(!$grade_query){
 }
 
 
-if($_POST['year']){
+if(isset($_POST['year'])){
     $year_sql = "select * from studentgrades where student = '$student'";
     $year_query = mysqli_query($connection_schools, $year_sql);
     if(!$year_query){

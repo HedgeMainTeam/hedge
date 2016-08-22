@@ -6,7 +6,7 @@ include("header.php");
     $sql = "select * from student where Email = '$student'";
     $query = mysqli_query($connection_scout, $sql);
     if(!$query){
-        echo $connection_scout->error();
+        echo $connection_scout->error;
 }
     else{
         $data = mysqli_fetch_array($query);
@@ -21,7 +21,7 @@ include("header.php");
         $new_sql = "select * from universities where id = '$uniCode'";
         $new_query = mysqli_query($connection_schools, $new_query);
         if(!$new_query){
-            echo $connection_schools->error();
+            echo $connection_schools->error;
     }
 
         else{
@@ -29,7 +29,7 @@ include("header.php");
             $school_name = $school_data['name'];
 }
 
-if($_POST['follow/unfollow']){
+if(isset($_POST['follow/unfollow'])){
      $connnection_sql = "select * from business_connections where student = '$student' and business = '$currentUser'";
      $connection_query = mysqli_query($connections, $connnection_sql);
      if($connection_query){

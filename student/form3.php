@@ -17,7 +17,7 @@ echo "
 ";
 
 $currentUser = $_COOKIE['current_user'];
-if($_POST['submit']){
+if(isset($_POST['submit'])){
     $bio = $_POST['bio'];
     $sql = "update students set Biography = '$bio' where Email = '$currentUser'";
     $query = mysqli_query($connection, $sql);

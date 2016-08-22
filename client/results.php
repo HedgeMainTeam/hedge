@@ -1,7 +1,11 @@
 <?php
 include("connect.php");
 include("header.php");
-if($_POST['submit']){
+
+if(isset($_COOKIE['student'])){
+    setcookie("student", "", time() - 3600, "/");
+}
+if(isset($_POST['submit'])){
     $id = $_POST['uniName'];
     $field = $_POST['type'];
 

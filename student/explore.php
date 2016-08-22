@@ -1,6 +1,9 @@
 <?php
 include("header.php");
 include("connect.php");
+if(isset($_COOKIE['business'])){
+    setcookie("business", "", time() - 3600, "/");
+}
 
 $sql = "select * from clients";
 $query = mysqli_query($connection_business, $sql);

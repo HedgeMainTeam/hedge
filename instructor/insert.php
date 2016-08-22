@@ -105,7 +105,8 @@ if($_POST['picked']){
 
 		</div>
 
-	</div></center><br/><br/><br/><br/><br/><br/>   
+	</div>
+    </center><br/><br/><br/><br/><br/><br/>   
 	";
 
 include("footer.php");

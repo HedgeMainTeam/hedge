@@ -1,5 +1,15 @@
 <?php
 include("header.php");
+include("connect.php");
+
+$sql = "select * from univerisites";
+$query = mysqli_query($connection_schools, $sql);
+
+if(!$query){
+    echo $connection_schools->error;
+}
+
+
 
 	echo"
 
@@ -9,16 +19,17 @@ include("header.php");
 			<div id = \"inputs\">
 			<form id = \"exlore\" method = \"POST\"	action = \"results.php\">
 
-            Field Of Study: <br/><select id = \"exInput\" name=\"type\">
-                <option value=\"engineering\">Engineering</option>
-                <option value=\"medicine\">Medicine</option>
-                <option value=\"pharmacy\">Pharmacy</option>
-            </select><br/><br/><br/><br/>
+            Field Of Study: <br/><input type = 'text' name = 'type' id = 'input' placeholder = 'Program of Study'/><br/><br/><br/><br/>
 
-            Choose University:<br/><select id = \"exInput\" name=\"uniName\">
-                <option value=\"univeristyID\">University Name</option>
-                <option value=\"univeristyID1\">University Name1</option>
-                <option value=\"univeristyID2\">University Name2</option>
+            University:<br/><select id = \"exInput\" name=\"uniName\">";
+            
+            while($info = mysqli_fetch_assoc($query)){
+                $id = $info['id'];
+                $name = $info['name'];
+                echo"<option value=\"$id\">$name</option>"
+            }
+
+            echo"
             </select><br/><br/><br/><br/>
 
             <br/><br/>

@@ -25,7 +25,7 @@ echo "
 
 ";
 
-if($_POST['submit']){
+if(isset($_POST['submit'])){
     $university = $_POST['uniCode'];
     $sql = "select * from universities where id = '$university'";
     $query = mysqli_query($connection_schools,$sql);

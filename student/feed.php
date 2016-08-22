@@ -2,6 +2,10 @@
 include("connect.php");
 include("header.php");
 
+if($_COOKIE['business']) {
+   	setcookie("business", "", time() - 3600, "/");
+}
+
 $currentUser = $_COOKIE['current_user'];
 $type = "opening";
 $sql = "select * from notifications where student = '$currentUser' and type = '$type'";

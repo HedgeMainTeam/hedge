@@ -24,7 +24,7 @@ echo"
 ";
 
 $currentUser = $_COOKIE['current_user'];
-if($_POST['submit']){
+if(isset($_POST['submit'])){
 
     $yearBirth = $_POST['birth'];
     $program = $_POST['program'];

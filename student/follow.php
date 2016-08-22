@@ -3,7 +3,7 @@
 include("connect.php");
 $business = $_COOKIE['business'];
 $currentUser = $_COOKIE['current_user'];
-if($_POST['follow/unfollow']){
+if(isset($_POST['follow/unfollow'])){
      $connnection_sql = "select * from student_connections where student = '$currentUser' and business = '$business'"; 
      $connection_query = mysqli_query($connections, $connnection_sql);
 

@@ -11,10 +11,7 @@ echo "
 	<div id = \"header\">
 		<ul>
 			<li id = \"logo\"><img src = 'hedge_logo.png' href = 'index.php'/></li>
-   			<li><a href=\"\">Profile</a></li>
-   			<li><a href=\"\">News</a></li>
-   			<li><a href=\"\">Contact</a></li>
-   			<li><a href=\"\">About</a></li>
+            <li><a href=\"logout.php\">Logout</a></li>
 		</ul> 
 	</div><br/><br/><br/><br/>
 

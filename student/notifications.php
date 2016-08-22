@@ -1,5 +1,10 @@
 <?php
 include("connect.php");
+
+if(isset($_COOKIE['business'])){
+    setcookie("business", "", time() - 3600, "/");
+}
+
 $currentUser = $_COOKIE['current_user'];
 $sql = "select * from notifications where student = '$currentUser'";
 $query = mysqli_query($connection,$sql);
