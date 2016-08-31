@@ -2,12 +2,14 @@
 include("connect.php");
 include("header.php");
 $currentUser = $_COOKIE['current_user'];
-if($_POST['submit']){
+
+if(isset($_POST['submit'])){
     $sql = "select * from clients where email = '$currentUser'";
     $query = mysqli_query($connection,$sql);
     if(!$query){
         echo"Didn't work";
-}
+    }
+
 else{
     $data = mysqli_fetch_array($query);
     $id = $data['id'];
@@ -19,15 +21,18 @@ else{
     $new_sql = "insert into openings(id, name, type, description, deadline) values ('$id', '$name', '$type','$desc', '$deadline')";
     $new_query = mysqli_query($connection, $new_sql);
     if($new_query){
-        $connections_sql = "select * from business_connections where business = '$currentUser'";
+        $connections_sql = "select * from student_connections where business = '$currentUser'";
         $connections_query = mysqli_query($connections, $connections_sql);
         if(mysqli_num_rows($connections_query) >= 1){
-               while($connectionData = mysqli_fetc_assoc($connections_query)){
+               while($connectionData = mysqli_fetch_assoc($connections_query)){
                 $student = $connectionData['student'];
                 $text = $name;
                 $not_type = "opening";
                 $notification_sql = "insert into notifications (source, student, text, type)values('$currentUser', '$student','$text','$not_type')";
-                $notification_query = mysqli_query($connection_schools, $notification_query);
+                $notification_query = mysqli_query($connection_scout, $notification_sql);
+                if(!$notification_query){
+                        echo $connection_scout->error;
+                    }
                 }
         }
 }

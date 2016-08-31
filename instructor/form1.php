@@ -16,7 +16,7 @@ else{
     $courses = $_POST['nCourses'];
     $Password1 = hash("sha512", $_POST['password']);
 	$Password2 = hash("sha512", $_POST['password2']);
-     setcookie("current_user", $email, time() + 24 * 60 * 60, "/");
+     setcookie("user_signup", $email, time() + 24 * 60 * 60, "/");
 
     if($uniCode && $email && $name && $courses && $Password1 && $Password2){
         if($Password1 == $Password2){

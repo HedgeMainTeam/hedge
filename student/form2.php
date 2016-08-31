@@ -23,7 +23,7 @@ echo"
 	</center>
 ";
 
-$currentUser = $_COOKIE['current_user'];
+$currentUser = $_COOKIE['user_signup'];
 if(isset($_POST['submit'])){
 
     $yearBirth = $_POST['birth'];

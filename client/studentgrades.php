@@ -2,60 +2,39 @@
 include("connect.php");
 include("header.php");
 $studentemail = $_COOKIE['student'];
-$sql = "select * from students where Email = '$studentemail'";
-$query = mysqli_query($connection_schools, $sql);
-if(!$query){
-    echo "Something's wrong";
+$currentUser = $_COOKIE['current_user'];
+
+if(isset($_COOKIE['year'])){
+    $year = $_COOKIE['year'];
 }
 
 else{
-    $studentData = mysqli_fetch_array($query);
-    $uniCode = $studentData['uniCode'];
-    $student = $studentData['stdNumber'];
-    $name = $studentData['FullName'];
+    $year = date("Y");
+}
+
+$student_sql = "select * from students where Email = '$studentemail'";
+$student_query = mysqli_query($connection_scout,$student_sql);
+if($student_query){
+    $studentData = mysqli_fetch_array($student_query);
+    $name = $studentData['name'];
     $age = date("Y") - $studentData['YearOfBirth'];
-    $program = $studentData['ProgramOfStudy'];
     $sex = $studentData['sex'];
-    $new_sql = "select * from universities where id = '$uniCode'";
-        $new_query = mysqli_query($connection_schools, $new_query);
-        if(!$new_query){
-            echo $connection_schools->error();
-    }
-
-        else{
-            $school_data = mysqli_fetch_array($new_query);
-            $school_name = $school_data['name'];
+    $program = $studentData['ProgramOfStudy'];
 }
 
-
-
-    $grade_sql = "select * from studentgrades where student = '$student'";
-    $grade_query = mysqli_query($connection_schools, $grade_sql);
-   
+$grade_sql = "select * from studentgrades where student = '$student' and year = '$year'";
+$grade_query = mysqli_query($connection_schools, $grade_sql);
 if(!$grade_query){
-    echo "Something went wrong";
+    echo $connection_schools->error;
 }
-    
 
-else{
-        $years = array();
-        $years[0] = date("Y");
-        $i = 0;
-        $total = mysqli_num_rows($grade_query);
-        while($info = mysqli_fetch_assoc($grade_query)){
-            $year = $info['year'];
-            foreach($years as $it){
-                if($it == $year){
-                    break;
-                    }
-                else{
-                    $i = $i + 1;
-                    $years[$i] = $year;
-                }
-            }
-            
-            
+$prev_year = $year - 1;
+$previous_sql = "select * from studentgrades where student = '$student' and year = '$prev_year'";
+$previous_query = mysqli_query($connection_schools,$previous_sql );
+if(!$previous_sql){
+    echo $connection_schools->error;
 }
+
 
     echo"
 <center>
@@ -66,70 +45,40 @@ else{
 			<h2>Student Name: $name</h2><br/>
 			<h3>Age: $age</h3>
 			<h3>Sex: $sex</h3>
-			<h3>Attends: $school_name</h3>
+			<h3>Attends: $uniName</h3>
 			<h3>Program of Study: $program</h3></div>
 			<div id = \"stdRight\">
-			<form method = 'POST' action = 'grades.php'>";
-            foreach ($years as $button){
-                echo"<input type = 'submit' id = 'button' value = '$button' name = 'year'";
-            }
-            echo"</form>
-            </div><br/>
-				
-			</div>
-		</div>
-
-	</div></center>
-";
-}
-
-}
-
-
-if($_POST['year']){
-    $year_sql = "select * from studentgrades where student = '$student'";
-    $year_query = mysqli_query($connection_schools, $year_sql);
-    if(!$year_query){
-        echo $connection_schools->error();
-}
-    else{
-    echo"
-<center>
-	<div id = \"view\">
-		<div id = \"profile\">
-			<div id = \"student\">
-			<div id = \"info\">
-			<h2>Student Name: $name</h2><br/>
-			<h3>Age: $age</h3>
-			<h3>Sex: $sex</h3>
-			<h3>Attends: $school_name</h3>
-			<h3>Program of Study: $program</h3></div>
-			<div id = \"stdRight\">
-			<h2>Performance</h2>
+            <h2>Performance - $year</h2>
                 <table id = \"grades\" border = \"1\">
 				<tr><th>Course</th><th>Grade</th></tr>";
-            while($info = mysqli_fetch_assoc($year_query)){
-                    $course = $info['subjectName'];
-                    $grade = $info['subjectMark'];
-                    echo"<tr><td>$course</td><td>$grade</td></tr>";
-            }
-			
-            echo"
-					</table>
-			</div><br/>
-				
+                if(mysqli_num_rows($grade_query) > 0){
+                    while($grade_info = mysqli_fetch_assoc($grade_query)){
+                        $course = $grade_info['subjectName'];
+                        $grade = $grade_info['studentMark'];
+                        echo"<tr><td>$course</td><td>$grade</td></tr>";
+                    }
+                }
+                      
+            
+            echo"</table>
+			    </div><br/>";
+                if(mysqli_num_rows($previous_query) > 0){
+                    echo "<form method = 'POST' action = 'grades.php'>
+                               <input type = 'submit' id = 'button' name = 'next' value = 'Next'/>
+                           </form>";
+                    if(isset($_POST['next'])){ 
+                        setcookie("year", $prev_year, time() + 24 * 60 * 60, "/");
+                    }
+                }
+                    
+				echo"
 			</div>
 		</div>
 
 	</div></center>
-
 ";
-        
-}
-}
-
 
 
 
 include("footer.php");
-?>
+?>?>

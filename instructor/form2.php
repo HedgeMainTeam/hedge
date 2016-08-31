@@ -1,6 +1,6 @@
 <?php
 include("connect.php");
-$currentUser = $_COOKIE['current_user'];
+$currentUser = $_COOKIE['user_signup'];
 $select = "select nCourses from instructors where email = '$currentUser'";
 $query = mysqli_query($connection, $select);
 $data = mysqli_fetch_array($query);
@@ -39,7 +39,7 @@ echo"Nothing Submitted";
 else{
 
 for($x = 0; $x < $number; $x++){
-    $course = $_POST['$i'];
+    $course = $_POST[$x];
     $new_sql = "update courses set instructor = '$currentUser'";
     $new_query = mysqli_query($connection,$new_sql);
     if(!$new_query){
@@ -47,7 +47,9 @@ for($x = 0; $x < $number; $x++){
     break;
 }
 }
-header("Location:index.php");
+setcookie("current_user", $currentUser, time() + 24 * 60 * 60, "/");
+setcookie("user_signup", "", time() - 3600, "/");
+header("Location:pre_insert.php");
 }
 ?>
 

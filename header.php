@@ -3,7 +3,7 @@ echo "
 
 	<html>
 	<head>
-		<title>Students</title>
+		<title>Welcome to Hedge</title>
 		<link rel=\"stylesheet\" type=\"text/css\" href = \"style.css\"/>
 	</head>
 
@@ -11,7 +11,6 @@ echo "
 	<div id = \"headerstart\">
 		<ul>
 			<li id = \"logo\"><img src = 'hedge_logo.png' href = 'index.php'/></li>
-   			<li><a href=\"\">Contact</a></li>
 
 		</ul> 
 	</div><br/><br/><br/><br/>

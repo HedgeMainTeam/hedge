@@ -5,6 +5,8 @@ include("header.php");
 if(isset($_COOKIE['student'])){
     setcookie("student", "", time() - 3600, "/");
 }
+
+
 if(isset($_POST['submit'])){
     $id = $_POST['uniName'];
     $field = $_POST['type'];
@@ -18,6 +20,7 @@ if(isset($_POST['submit'])){
 
 else{
     $total = mysqli_num_rows($query);
+    $val = 0;
 }
 }
 echo"
@@ -41,10 +44,16 @@ echo"
             setcookie("student", $email, time() + 24 * 60 * 60, "/");
             echo"
             <div id = \"nCard\">
-				<p>$name<form method = 'POST' action= 'click.php'> <input type = 'submit' id = 'button' name = 'view' value = 'View Profile'/> 
+				<p>$name<form method = 'POST' action= 'results.php'> <input type = 'submit' id = 'button' name = '$val' value = 'View Profile'/> 
                 <input type = 'submit' id = 'button' name = 'follow' value = 'Follow'/></p>
 			</div><br/>
         ";
+
+            if(isset($_POST[$val])){
+	                 setcookie("student", $stdEmail, time() + 24 * 60 * 60, "/");
+                     header("Location:student.php");
+                }   
+                $val= $val + 1;
     }
 }
 echo"

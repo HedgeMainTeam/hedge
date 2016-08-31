@@ -16,12 +16,14 @@ echo "
 
 ";
 
-$currentUser = $_COOKIE['current_user'];
+$currentUser = $_COOKIE['user_signup'];
 if(isset($_POST['submit'])){
     $bio = $_POST['bio'];
     $sql = "update students set Biography = '$bio' where Email = '$currentUser'";
     $query = mysqli_query($connection, $sql);
     if($query){
+        setcookie("current_user", $currentUser, time() + 24 * 60 * 60, "/");
+        setcookie("user_signup", "", time() - 3600, "/");
         header("Location:profile.php");
     }
 

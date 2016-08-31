@@ -1,6 +1,7 @@
 <?php
 
 include("connect.php");
+
 $business = $_COOKIE['business'];
 $currentUser = $_COOKIE['current_user'];
 if(isset($_POST['follow/unfollow'])){
@@ -18,8 +19,14 @@ if(isset($_POST['follow/unfollow'])){
      }
 
      else{
+        $student_sql = "select * from students where Email = '$currentUser'";
+        $student_query = mysqli_query($connection,$student_sql);
+        if($student_query){
+            $stdData = mysqli_fetch_array($student_query);
+            $studentname = $stdData['FullName'];
+        }
         $relation = "Yes";
-        $text = $currentUser." is interested in you.";
+        $text = $studentname." is interested in you.";
         $type = "interest";
         $flw_sql = "insert into student_connections (student, business, following) values ('$currentUser', '$business','$relation')";
         $flw_query = mysqli_query($connections, $flw_sql);

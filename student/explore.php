@@ -8,9 +8,10 @@ if(isset($_COOKIE['business'])){
 $sql = "select * from clients";
 $query = mysqli_query($connection_business, $sql);
 if(!$query){
-    echo $connection_business->error();
+    echo $connection_business->error;
 }
 else{
+$val = 0;
 
 echo"
 <center>
@@ -20,11 +21,17 @@ echo"
             while($info = mysqli_fetch_assoc($query)){
             $name = $info['name'];
             $email = $info['email'];
-   			setcookie("business", $email, time() + 24 * 60 * 60, "/");
+   			//
             echo"
                 <div id = \"nCard\">
-			       <p>$name <form method = 'POST' action = 'loadbusiness.php'><input type = 'submit' id = 'button' value = 'View Profile'/><form></p>
+			       <p>$name <form method = 'POST' action = 'explore.php'><input name = '$val' type = 'submit' id = 'button' value = 'View Profile'/><form></p>
                 </div><br/>";
+
+                if(isset($_POST[$val])){
+	                 setcookie("business", $email, time() + 24 * 60 * 60, "/");
+                     header("Location:loadbusiness.php");
+                }   
+                $val= $val + 1;
             }
 echo"
 	</div></center>

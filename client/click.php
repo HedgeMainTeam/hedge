@@ -3,7 +3,7 @@ include("connect.php");
 $opening = $_COOKIE['jandl'];
 $id = $_COOKIE['id'];
 
-if($_POST['delete']){
+if(isset($_POST['delete'])){
 
 $sql = "select * from openings where id = '$id' and name = '$opening'";
 $query = mysqli_query($connection,$sql);
@@ -24,7 +24,7 @@ else{
 
 }
 
-else if($_POST['view']){
+else if(isset($_POST['view'])){
 $sql = "select * from openings where id = '$id' and name = '$opening'";
 $query = mysqli_query($connection, $sql);
 if(!$query){

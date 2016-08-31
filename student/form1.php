@@ -39,7 +39,7 @@ if(isset($_POST['submit'])){
 
         if($id && $email && $fullname && $sex && $password && $password2 ){
            if($password == $password2){
-                setcookie("current_user", $email, time() + 24 * 60 * 60, "/");
+                setcookie("user_signup", $email, time() + 24 * 60 * 60, "/");
                 $student_sql = "insert into students(uniCode, stdNumber, FullName, sex, Email, Password) values ('$university', '$id', '$fullname', '$sex', '$email', '$password')";
                 $student_query = mysqli_query($connection, $student_sql);
                 if($student_query){

@@ -1,13 +1,6 @@
 <?php
 include("connect.php");
-$submitted = $_POST['submit'];
-
-if(!$submitted){
-	echo"Nothing has been submitted";
-}
-
-else{
-
+if(isset($_POST['submit'])) {
 
 	$name = $_POST['cName'];
 	$pref = $_POST['prefix'];
@@ -18,19 +11,18 @@ else{
 	$pcontact = $pref.". " .$contact;
 
 	if($name && $pref && $contact && $email && $number && $address){
+
 		$sql = "insert into clients (name , pcontact, number, email, address) values ('$name', '$pcontact','$number', '$email', '$address')";
 		$query = mysqli_query($connection,$sql);
-        setcookie("current_user", $email, time() + 24 * 60 * 60, "/");
-		if($query){
+        setcookie("user_signup", $email, time() + 24 * 60 * 60, "/");
+
+		if($query) {
 			echo "Done";
 			header("Location:clientSignup1.php");
-		}
-
-		else{
-				print("Update failed : error " . $connection->error);
+		} else {
+		    print("Update failed : error " . $connection->error);
 		}
 	}
-
 }
 
 

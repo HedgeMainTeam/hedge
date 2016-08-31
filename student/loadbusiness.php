@@ -1,8 +1,10 @@
 <?php
 include("connect.php");
 include("header.php");
-$business = $_COOKIE['business'];
+
+
 $currentUser = $_COOKIE['current_user'];
+$business = $_COOKIE['business'];
 $sql = "select * from clients where email = '$business'";
 $query = mysqli_query($connection_business, $sql);
 if(!$query){

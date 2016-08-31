@@ -1,21 +1,17 @@
 <?php
 
 include("connect.php");
-$submitted = $_POST['submit'];
 
-
-if(!$submitted){
-	echo "Nothing Yet";
-}
-
-else{
-    $currentUser = $_COOKIE['current_user'];
+if(isset($_POST['submit'])){
+    $currentUser = $_COOKIE['user_signup'];
 	$stdNum = $_POST['stdNum'];
 	$sql = "update clients set maxstudents = '$stdNum' where email = '$currentUser'";
 	$query = mysqli_query($connection, $sql);
 	
 	if($query){
 		echo "Done";
+        setcookie("current_user", $currentUser, time() + 24 * 60 * 60, "/");
+        setcookie("user_signup", "", time() - 3600, "/");
 		header("Location:profile.php");
 	}
 
@@ -39,9 +35,6 @@ echo"
                 <option value=\"15\">15</option>
                 <option value=\"20\">20</option>
             </select><br/><br/>
-            	<select id= \"input\" name=\"university\">
-                <option value=\"universityCode\">Which University would you like to Follow first?</option>
-            </select><br/>
             <input id = \"submit\" type = \"submit\" id = \"submit\" name = \"submit\" value= \"Done\"/>
 		</form>
 	</div>

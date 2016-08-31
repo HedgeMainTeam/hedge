@@ -1,19 +1,15 @@
 <?php
 include("connect.php");
-$submitted = $_POST['submit'];
 
-if(!$submitted){
-	echo "Nothing";
-}
-
-else{
+if(isset($_POST['submit'])){
+    $email = $_COOKIE['user_signup'];
 	$id = $_POST['cCode'];
 	$pass = hash("sha512", $_POST['password']);
 	$pass2 = hash("sha512", $_POST['password2']);
 
 	if($id && $pass && $pass2){
 		if($pass == $pass2){
-			$sql = "update clients set password = '$pass' where id = '$id'";
+			$sql = "update clients set password = '$pass' where email = '$email'";
 
 			$query = mysqli_query($connection, $sql);
 			if($query){

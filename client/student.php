@@ -1,9 +1,10 @@
 <?php
+include("connect.php");
 include("header.php");
 
     $student = $_COOKIE['student'];
     $currentUser = $_COOKIE['current_user'];
-    $sql = "select * from student where Email = '$student'";
+    $sql = "select * from students where Email = '$student'";
     $query = mysqli_query($connection_scout, $sql);
     if(!$query){
         echo $connection_scout->error;
@@ -18,8 +19,8 @@ include("header.php");
         $biography = $data['Biography'];
 
 
-        $new_sql = "select * from universities where id = '$uniCode'";
-        $new_query = mysqli_query($connection_schools, $new_query);
+        $new_sql = "select * from universities where id = '$code'";
+        $new_query = mysqli_query($connection_schools, $new_sql);
         if(!$new_query){
             echo $connection_schools->error;
     }
@@ -36,17 +37,21 @@ if(isset($_POST['follow/unfollow'])){
      $found = mysqli_num_rows($connection_query);
      if($found == 1){
         $del_sql = "delete from business_connections where student = '$student' and business = '$currentUser'";
-        $del_sql = mysqli_query($connections,$del_query);
+        $del_sql = mysqli_query($connections,$del_sql);
      }
 
      else{
         $relation = "Yes";
         $text = $currentUser." is interested in you.";
-        $type = "interest";
+        $type = "business";
         $flw_sql = "insert into business_connections (student, business, following) values ('$student', '$currentUser','$relation')";
-        $flw_query = mysqli_query($connections, $$flw_sql);
+        $flw_query = mysqli_query($connections, $flw_sql);
+        if(!$flw_query){
+            echo $connections->error;
+        }
         $notification_sql = "insert into notifications (source, student, text, type)values('$currentUser', '$student','$text','$type')";
-        $notification_query = mysqli_query($connection_schools, $notification_query);
+        $notification_query = mysqli_query($connection_scout, $notification_sql);
+    }
     }
        
 }
@@ -67,7 +72,7 @@ echo "
 			<h3>Program of Study: $program</h3></div>
 			<div id = \"stdBio\"><h2>Biography:</h2><p>$biography</p>
 			<h2>Email Address:</h2><p> $student</p>
-			<form method = 'POST' action = 'grades.php'><input id = 'button type = 'submit' name = 'view_grades' value = 'View Performance'/></form></div>	
+			<form method = 'POST' action = 'studentgrades.php'><input id = 'button' type = 'submit' name = 'view_grades' value = 'View Performance'/></form></div>	
             <form method = 'POST' action = 'student.php'>";
                     if($found == 1){
                         /*$connection_data = mysqli_fetch_array($connection_query);
@@ -89,6 +94,6 @@ echo "
 ";
 
     include("footer.php");
-}
+
 
 ?>

@@ -10,8 +10,12 @@ echo "
 <body>
 	<div id = \"header\">
 		<ul>
-			<li id = \"logo\"><img src = 'hedge_logo.png' href = 'index.php'/></li>
-            <li><a href=\"logout.php\">Logout</a></li>
+			<a href = 'index.php'><li id = \"logo\"><img src = 'hedge_logo.png'/></li></a>";
+
+            if(isset($_COOKIE['current_user'])){
+                echo"<li><a href=\"logout.php\">Logout</a></li>";
+            }
+        echo"    
 		</ul> 
 	</div><br/><br/><br/><br/>
 
