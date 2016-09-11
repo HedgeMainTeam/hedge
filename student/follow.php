@@ -26,7 +26,7 @@ if(isset($_POST['follow/unfollow'])){
             $studentname = $stdData['FullName'];
         }
         $relation = "Yes";
-        $text = $studentname." is interested in you.";
+        $text = " is interested in you.";
         $type = "interest";
         $flw_sql = "insert into student_connections (student, business, following) values ('$currentUser', '$business','$relation')";
         $flw_query = mysqli_query($connections, $flw_sql);

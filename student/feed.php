@@ -1,10 +1,17 @@
 <?php
 include("connect.php");
 include("header.php");
+
+$currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
+
+
 if(isset($_COOKIE['business'])){
     setcookie("business", "", time() - 3600, "/");
 }
-$currentUser = $_COOKIE['current_user'];
+
 $type = "opening";
 $sql = "select * from notifications where student = '$currentUser' and type = '$type'";
 $query = mysqli_query($connection,$sql);
@@ -14,9 +21,9 @@ if(!$query){
 }
 
 	echo "
-	<br/><br/><center>
+	<center>
 	<div id = \"view\">
-		<div id = \"feed\">
+		<div id = \"notification\">
 			";
             if(mysqli_num_rows($query) >= 1){
                    $val = 0;
@@ -33,8 +40,8 @@ if(!$query){
                             $client_data = mysqli_fetch_array($client_query);
                             $client_name = $client_data['name'];
                             echo"
-                                <div id = \"fCard\">
-                                <h3 id = \"type\">Opening: $client_name</h3><p id = \"content\">$text><form method = 'POST' action = 'loadJandL.php'><input type = 'submit' id = 'button' name = 'opening' value = 'View'/></form> 
+                                <div id = \"nCard\">
+                                <br/><h3 id = \"type\">Opening: $text</h3><p id = \"content\"><form method = 'POST' action = 'feed.php'><input type = 'submit' id = 'button' name = '$val' value = 'View'/></form> 
 				                </p><br/>
 			                    </div><br/>
                             ";

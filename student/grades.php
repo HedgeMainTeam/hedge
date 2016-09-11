@@ -3,6 +3,9 @@ include("connect.php");
 include("header.php");
 
 $currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
 
 if(isset($_COOKIE['year'])){
     $year = $_COOKIE['year'];

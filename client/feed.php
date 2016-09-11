@@ -8,8 +8,11 @@ if(isset($_COOKIE['student'])){
 
 
 $currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
+
 $sql = "select * from notifications where business = '$currentUser'";
-echo $currentUser;
 $query = mysqli_query($connection, $sql);
 if(!$query){
     echo $connection->error;
@@ -45,8 +48,8 @@ $val = 0;
 		        <div id = \"feed\">
 			    <div id = \"fCard\">
 				    <h3 id = \"type\">$stdName - $text</h3> 
-				    <form method = 'POST' action = 'feed.php'><input type = 'submit' name = '$val' id = 'button' value ='View Profile' /></p><br/>
-			    </div><br/>";
+				    <form method = 'POST' action = 'feed.php'><input type = 'submit' name = '$val' id = 'button' value ='View Profile' /></p>
+			    </div>";
                 if(isset($_POST[$val])){
 	                 setcookie("student", $stdEmail, time() + 24 * 60 * 60, "/");
                      header("Location:student.php");

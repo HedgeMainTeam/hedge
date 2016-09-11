@@ -3,6 +3,9 @@
 	include("header.php");
 	include("connect.php");
     $currentUser = $_COOKIE['current_user'];
+    if(!$currentUser){
+        header("Location:../index.php");
+    }
 	$sql = "select name, cstudents,maxstudents,address, email from clients where email = '$currentUser'";
 	$query = mysqli_query($connection, $sql);
 	$data = mysqli_fetch_array($query);

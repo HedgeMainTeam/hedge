@@ -1,6 +1,12 @@
 <?php
 include("header.php");
 
+$currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
+
+
 if(isset($_COOKIE['total']) && isset ($_COOKIE['number'])){
     setcookie("total", "", time() - 3600, "/");
     setcookie("number", "", time() - 3600, "/");

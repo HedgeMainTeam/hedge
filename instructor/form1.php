@@ -1,11 +1,7 @@
 <?php
 include("connect.php");
-$submitted = $_POST['submit'];
-if(!$submitted){
-    echo "Nothing Yet";
-}
 
-else{
+if(isset($_POST['submit'])){
     $uniCode = $_POST['uniCode'];
     $sql = "select * from universities where id = '$uniCode'";
     $query = mysqli_query($connection,$sql);

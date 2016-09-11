@@ -3,6 +3,9 @@
 	include("header.php");
 
     $currentUser = $_COOKIE['current_user'];
+    if(!$currentUser){
+        header("Location:../index.php");
+    }
     $sql = "select * from clients where email = '$currentUser'";
     $query = mysqli_query($connection,$sql);
     if(!$query){
@@ -23,10 +26,11 @@
         $openingQuery = mysqli_query($connection,$openingSql);
         if(!$openingQuery){
         echo "Something else went wrong";
-}
+}   
    else{
         $total = mysqli_num_rows($openingQuery);
         setcookie("id", $id, time() + 24 * 60 * 60, "/");
+        $current = 0;
 }
 
 }
@@ -49,7 +53,6 @@
 					<tr><th>Jobs and Interships</th><th>Deadline</th><th>Information</th></tr>";
                     
                     while($info = mysqli_fetch_assoc($openingQuery)){
-                    for($i = 0; $i < $total; $i++){
                     $id = $info['id'];
                     $name = $info['name'];
                     $type = $info['type'];
@@ -61,7 +64,6 @@
                     <input type = 'submit' name = 'delete' id = 'button' value = 'Delete'/></td></tr>";
                         
 
-}
 }
 
 echo"

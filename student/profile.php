@@ -3,6 +3,10 @@ include("header.php");
 include("connect.php");
 
 $currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
+
 $sql = "select * from students where email = '$currentUser'";
 $query = mysqli_query($connection, $sql);
 if(!$query){

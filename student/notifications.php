@@ -6,6 +6,12 @@ if(isset($_COOKIE['business'])){
 }
 
 $currentUser = $_COOKIE['current_user'];
+
+if(!$currentUser){
+    header("Location:../index.php");
+}
+
+
 $sql = "select * from notifications where student = '$currentUser'";
 $query = mysqli_query($connection,$sql);
 if(!$query){
@@ -28,25 +34,27 @@ echo"
             $source = $info['source'];
             $text = $info['text'];
             $type = $info['type'];
-            //$id = $info['id'];
+            
             
             if($type == "business"){
 
                 $new_sql = "select * from clients where email = '$source'";
                 $new_query = mysqli_query($connection_business, $new_sql);
 
-                if(mysqli_num_rows($new_query) == 0){
-                      echo "
-                        <div id = \"nCard\">
-				            <p>Nothing to Show Yet.</p>
-                        </div><br/>
-                        ";
-                }
-                else if(!$new_query){
+                
+                if(!$new_query){
                     echo $connection_business->error;
                 }
 
                 else if ($new_query){          
+                    if(mysqli_num_rows($new_query) == 0){
+                      echo "
+                       <br/><br/><br/><br/> <div id = \"nCard\">
+				            <p>Nothing to Show Yet.</p>
+                        </div><br/><br/><br/><br/><br/>
+                        ";
+                    }
+                    else{
                     echo"
                         <div id = \"nCard\">
 				            <p>$text <form method = 'POST' action = 'notifications.php'><input name = '$val' type = 'submit' id = 'button' value = 'View'/><form></p>
@@ -58,14 +66,15 @@ echo"
                         
                         $val= $val + 1;
                 }
+               }
             }
             
 
-            else{
+            else if ($type == "grades"){
 
             echo"
             <div id = \"nCard\">
-				<p>$text <form method = 'POST' action = 'grades.php'><input type = 'submit' id = 'button' value = 'View'/><form></p>
+				<p>$text <form method = 'POST' action = 'grades.php'><input type = 'submit' id = 'button' value = 'View'/></form></p>
             </div><br/>";
             }
         

@@ -1,11 +1,14 @@
 <?php
 include("connect.php");
 include("header.php");
+$currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
 
 if(isset($_COOKIE['student'])){
     setcookie("student", "", time() - 3600, "/");
 }
-
 
 if(isset($_POST['submit'])){
     $id = $_POST['uniName'];
@@ -31,9 +34,9 @@ echo"
 			<center>";
                if($total == 0){
                echo"
-               <div id = \"nCard\">
+               <br/><br/><br/><br/><div id = \"nCard\">
 				<h2>Sorry, no students yet</h2>
-			</div><br/>";
+			</div><br/><br/><br/><br/><br/>";
 
             }
 
@@ -44,8 +47,7 @@ echo"
             setcookie("student", $email, time() + 24 * 60 * 60, "/");
             echo"
             <div id = \"nCard\">
-				<p>$name<form method = 'POST' action= 'results.php'> <input type = 'submit' id = 'button' name = '$val' value = 'View Profile'/> 
-                <input type = 'submit' id = 'button' name = 'follow' value = 'Follow'/></p>
+				<p>$name<form method = 'POST' action= 'student.php'> <input type = 'submit' id = 'button' name = '$val' value = 'View Profile'/></form></p>
 			</div><br/>
         ";
 

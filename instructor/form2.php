@@ -6,7 +6,7 @@ $query = mysqli_query($connection, $select);
 $data = mysqli_fetch_array($query);
 $number = $data['nCourses'];
 
-$submit = $_POST['submit'];
+
 
 
 
@@ -32,15 +32,11 @@ echo"
 
 ";
 
-if(!$submit){
-echo"Nothing Submitted";
-}
-
-else{
+if(isset($_POST['submit'])){
 
 for($x = 0; $x < $number; $x++){
     $course = $_POST[$x];
-    $new_sql = "update courses set instructor = '$currentUser'";
+    $new_sql = "update courses set instructor = '$currentUser' where number = '$course'";
     $new_query = mysqli_query($connection,$new_sql);
     if(!$new_query){
     print("Update failed : error " . $connection->error);

@@ -4,6 +4,20 @@ include("header.php");
 
     $student = $_COOKIE['student'];
     $currentUser = $_COOKIE['current_user'];
+    if(!$currentUser){
+    header("Location:../index.php");
+    }
+
+    $business_sql = "select * from clients where email = '$currentUser'";
+    $business_query = mysqli_query($connection, $business_sql);
+    if($business_query){
+        $businessData = mysqli_fetch_array($business_query);
+        $business_name = $businessData['name'];
+    }
+    else{
+        echo $connection->error;
+    }
+
     $sql = "select * from students where Email = '$student'";
     $query = mysqli_query($connection_scout, $sql);
     if(!$query){
@@ -30,6 +44,13 @@ include("header.php");
             $school_name = $school_data['name'];
 }
 
+
+    $connnection_sql = "select * from business_connections where student = '$student' and business = '$currentUser'";
+     $connection_query = mysqli_query($connections, $connnection_sql);
+     if($connection_query){
+     $found = mysqli_num_rows($connection_query);
+     }
+
 if(isset($_POST['follow/unfollow'])){
      $connnection_sql = "select * from business_connections where student = '$student' and business = '$currentUser'";
      $connection_query = mysqli_query($connections, $connnection_sql);
@@ -38,11 +59,12 @@ if(isset($_POST['follow/unfollow'])){
      if($found == 1){
         $del_sql = "delete from business_connections where student = '$student' and business = '$currentUser'";
         $del_sql = mysqli_query($connections,$del_sql);
+        header("Location:student.php");
      }
 
      else{
         $relation = "Yes";
-        $text = $currentUser." is interested in you.";
+        $text = $business_name." is interested in you.";
         $type = "business";
         $flw_sql = "insert into business_connections (student, business, following) values ('$student', '$currentUser','$relation')";
         $flw_query = mysqli_query($connections, $flw_sql);
@@ -51,6 +73,8 @@ if(isset($_POST['follow/unfollow'])){
         }
         $notification_sql = "insert into notifications (source, student, text, type)values('$currentUser', '$student','$text','$type')";
         $notification_query = mysqli_query($connection_scout, $notification_sql);
+        header("Location:student.php");
+
     }
     }
        
@@ -75,8 +99,6 @@ echo "
 			<form method = 'POST' action = 'studentgrades.php'><input id = 'button' type = 'submit' name = 'view_grades' value = 'View Performance'/></form></div>	
             <form method = 'POST' action = 'student.php'>";
                     if($found == 1){
-                        /*$connection_data = mysqli_fetch_array($connection_query);
-                        $relation = $connection_data['following'];*/
                         echo "<input id = 'button' type = 'submit' name = 'follow/unfollow' value = 'Following'/>";
                     }
 

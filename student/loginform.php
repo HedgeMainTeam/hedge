@@ -2,10 +2,6 @@
 <?php
 include("connect.php");
 
-
-
-
-
 echo "
 
 <center>

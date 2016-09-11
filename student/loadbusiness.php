@@ -4,6 +4,9 @@ include("header.php");
 
 
 $currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
 $business = $_COOKIE['business'];
 $sql = "select * from clients where email = '$business'";
 $query = mysqli_query($connection_business, $sql);

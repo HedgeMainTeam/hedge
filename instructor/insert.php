@@ -6,6 +6,11 @@ $total= $_COOKIE['total'];
 $number = $_COOKIE['number'];
 $date = getdate();
 $currentUser = $_COOKIE['current_user'];
+
+if(!$currentUser){
+    header("Location:../index.php");
+}
+
 $sql = "select * from instructors where email = '$currentUser'";
 $query = mysqli_query($connection,$sql);
 
@@ -67,31 +72,35 @@ if (isset($_POST['submit'])) {
             $notification_query = mysqli_query($connection_students, $notification_sql);
         
             if($notification_query){
-                echo "Students Have Been Notified.";
+                $connections_sql = "select * from business_connections where student = '$student'";
+                $connections_query = mysqli_query($connections, $connections_sql);
+
+                if(!$connections_query){
+                    echo $connections_query->error;
+                }   
+
+                if(mysqli_num_rows($connections_query) >= 1) {
+                    while($connectionData = mysqli_fetch_assoc($connections_query)) {
+                        $business =  $connectionData['business'];
+                        $text = $stdName . " - Grades have been updated";
+                        $not_sql = "insert into notifications(business, student, text, type)values('$business', '$student', '$text', '$type')";
+                        $not_query = mysqli_query($connection_business, $not_sql);
+
+                    if($not_query){
+                      echo "Businesses Have Been Notified!";
+                    }
+
+                    else{
+                        echo $connection_business->error;
+                    }
+                }   
+            }
             } 
             else {
                 echo $connection_students->error; 
             }
 
-            $connections_sql = "select * from business_connections where student = '$student'";
-            $connections_query = mysqli_query($connections, $connections_sql);
-
-            if(!$connections_query){
-                echo $connections_query->error;
-            }
-
-            if(mysqli_num_rows($connections_query) >= 1) {
-                while($connectionData = mysqli_fetch_assoc($connections_query)) {
-                    $business =  $connectionData['business'];
-                    $text = $stdName . "'s Grades have been updated";
-                    $not_sql = "insert into notifications(business, student, text, type)values('$business', '$student', '$text', '$type')";
-                    $not_query = mysqli_query($connection_business, $not_sql);
-
-                if($not_query){
-                      echo "Businesses Have Been Notified!";
-                     }
-                }   
-            }
+            
 
         }
         

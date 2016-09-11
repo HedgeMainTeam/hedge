@@ -1,7 +1,10 @@
 <?php
 include("header.php");
 include("connect.php");
-
+$currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
 $sql = "select * from universities";
 $query = mysqli_query($connection_schools, $sql);
 

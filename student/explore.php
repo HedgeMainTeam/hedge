@@ -1,6 +1,9 @@
 <?php
 include("header.php");
 include("connect.php");
+
+//header("Location:../index.php");
+
 if(isset($_COOKIE['business'])){
     setcookie("business", "", time() - 3600, "/");
 }

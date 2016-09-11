@@ -1,5 +1,12 @@
 <?php
 include("connect.php");
+
+$currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
+
+
 $opening = $_COOKIE['jandl'];
 $id = $_COOKIE['id'];
 
@@ -54,7 +61,7 @@ echo"
 				<h3 id = \"type\"></h3><p>Deadline: $deadline
 				<h3>Description:</h3><br/>
 				<p>$description</p><br/>
-			<form method='POST' action = 'click.php'><input type = 'submit' id = 'button' name = 'delete' value = 'Delete'/><br/>
+			<form method='POST' action = 'click.php'><input type = 'submit' id = 'button' name = 'delete' value = 'Delete'/><br/><br/>
 			<a href = \"loadJnl.php\"><button id = \"button\" >Go Back</button></a></p><br/>
 			</div><br/>
 		</div>

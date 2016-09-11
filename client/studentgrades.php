@@ -1,8 +1,12 @@
 <?php
 include("connect.php");
 include("header.php");
+
 $studentemail = $_COOKIE['student'];
 $currentUser = $_COOKIE['current_user'];
+if(!$currentUser){
+    header("Location:../index.php");
+}
 
 if(isset($_COOKIE['year'])){
     $year = $_COOKIE['year'];
@@ -16,20 +20,32 @@ $student_sql = "select * from students where Email = '$studentemail'";
 $student_query = mysqli_query($connection_scout,$student_sql);
 if($student_query){
     $studentData = mysqli_fetch_array($student_query);
-    $name = $studentData['name'];
+    $name = $studentData['FullName'];
+    $code = $studentData['uniCode'];
     $age = date("Y") - $studentData['YearOfBirth'];
     $sex = $studentData['sex'];
     $program = $studentData['ProgramOfStudy'];
+
+    $new_sql = "select * from universities where id = '$code'";
+        $new_query = mysqli_query($connection_schools, $new_sql);
+        if(!$new_query){
+            echo $connection_schools->error;
+    }
+
+        else{
+            $school_data = mysqli_fetch_array($new_query);
+            $uniName = $school_data['name'];
+        }
 }
 
-$grade_sql = "select * from studentgrades where student = '$student' and year = '$year'";
+$grade_sql = "select * from studentgrades where student = '$studentemail' and year = '$year'";
 $grade_query = mysqli_query($connection_schools, $grade_sql);
 if(!$grade_query){
     echo $connection_schools->error;
 }
 
 $prev_year = $year - 1;
-$previous_sql = "select * from studentgrades where student = '$student' and year = '$prev_year'";
+$previous_sql = "select * from studentgrades where student = '$studentemail' and year = '$prev_year'";
 $previous_query = mysqli_query($connection_schools,$previous_sql );
 if(!$previous_sql){
     echo $connection_schools->error;

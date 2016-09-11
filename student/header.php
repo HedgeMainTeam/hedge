@@ -20,7 +20,8 @@ echo "
                 <li><a href=\"notifications.php\">Notifications</a></li>
    			    <li><a href=\"feed.php\">News</a></li>
    			    <li><a href=\"profile.php\">Profile</a></li>";
-            }       
+            }
+      
          
 
       echo"	

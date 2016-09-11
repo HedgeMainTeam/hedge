@@ -51,7 +51,7 @@
                     $description = $info['description'];
                     $deadline = $info['deadline'];
 
-                    echo"<tr><td>$name</td><td>$deadline</td><td><p>$business</td></tr>";
+                    echo"<tr><td><center>$name</center></td><td><center>$deadline</center></td><td><p><center>$business</center></td></tr>";
                         
 
 }
